@@ -15,6 +15,15 @@ self.date_circulation=input("date de circulation: ")
 self.date_circulation=datetime.strftime(self.date_circulation,'%d/%m/%Y')  
 self.kilometrage=input("Kilometrage: ")
 self.cylindre=input("Cylindre: ")
+
+def voitureToVector(self):
+ return np.array([self.matricule,self.marque,self.date_circulation,self.kilometrage, self.cylindre])
+
+
+def normaliser_voiture(lst):
+    vecteur = np.array(lst)
+    vecteur_normalise = vecteur / np.linalg.norm(vecteur)
+    return vecteur_normalise #la norme d'un vecteur est la racine carrée de la somme des carrés de ses composantes
 if _name__=='__main_':
     v=Voiture()
     v.affiche()
