@@ -1,38 +1,103 @@
+from voiture import Voiture
+import NumPy as np
 class Agence:
-    def __init__(self, nom, adresse, telephone, email, liste_voitures):
-        self.nom = nom
-        self.adresse = adresse
-        self.telephone = telephone
-        self.email = email
-        self.liste_voitures = liste_voitures
+    def __init__(self):
+        self.my_listcars = []
+    def ajouter(self,v):
+        #v=Voiture()
+        #v.Saisir()
+        v1=v 
+        v1.Afficher()
+        self.afficher()
+        self.my_listcars.append(v1)
+        print(self.my_listcars[0].matricule)
+        
+        
 
-    def afficher(self):
-        print("Nom: ", self.nom)
-        print("Adresse: ", self.adresse)
-        print("Telephone: ", self.telephone)
-        print("Email: ", self.email)
-
-    def afficher_voitures(self):
-        for voiture in self.liste_voitures:
-            voiture.afficher()
-    def ajouter_voitures(self,voiture):
-        self.liste_voitures.append(voiture)
     def supprimer(self,v):
-        self.liste_voitures.remove(v)
+        self.my_listcars.remove(v)
+ 
+    def rechercherparmat(self,mat):
+        test=False
+        for v in self.my_listcars:
+            v1=Voiture()
+            v1=v           
+            if(v.matricule==mat):
+             test=True
+             break
+        return test  
+        
+    def afficher(self):
+        print("_____________________________")
+        print(self.my_listcars)
+        x=0
+        for v in self.my_listcars:
+            print("\n--",x+1,"----------------------")
+            self.my_listcars[x].Afficher()
+            x=x+1
+            
+        print("_____________________________")
+
+
+    def trier_date(self):
+        self.my_listcars.sort(key=lambda x: x.date_circulation)
+    def getvoitureplusrecente(self):
+        v=self.my_listcars[-1]
+        v.Afficher()
+    def getvoitureplusancienne(self):
+        v=self.my_listcars[0]
+        v.Afficher()
     
-    def rechercher (self,matricule):
-        for voiture in self.liste_voitures:
-            if voiture.matricule==matricule:
-                return voiture
-                return None
-    def trier_date_circulation (self):
-     self.liste_voitures.sort(key=lambda voiture: date_circulation)
-     print(liste_voitures)
-    def get_voiture_plusRecente(self):
-        print("Voiture la plus recente: ")
-        return self.liste_voitures[-1]
+
+def convert_marque(self, marque):
+        marque_mapping = {}
+        for i, m in enumerate(set([v.marque for v in self.voitures])):
+            marque_mapping[m] = i
+        return marque_mapping[marque]
+
+def convert_date_circulation(self, date_circulation):
+        year, month, day = map(int, date_circulation.split('-'))
+        return year + month/12 + day/365
+
+def to_vector(self, marque, date_circulation, cylindre, kilometrage):
+        marque = self.convert_marque(marque)
+        date_circulation = self.convert_date_circulation(date_circulation)
+        vector = np.array([marque, date_circulation, cylindre, kilometrage])
+        return vector / np.linalg.norm(vector)
+
+def search_voiture(self, marque, date_circulation, cylindre, kilometrage):
+        print("in")
+        search_vector = self.to_vector(marque, date_circulation, cylindre, kilometrage)
+        print("in 1")
+        scores = []
+        for v in self.voitures:
+            voiture_vector = self.to_vector(v.marque, v.date_circulation, v.cylindre, v.kilometrage)
+            similarity = np.dot(search_vector, voiture_vector)
+            scores.append((v, similarity))
+        print("in 2")
+        scores.sort(key=lambda x: x[1], reverse=True)
+        return scores
+
+
+
+if __name__ == '__main__':
+    a =Agence()
+    v=Voiture()
+    v.Saisir()
+    a.ajouter(v)
+    v1=Voiture()
+    v1.Saisir()
+    a.ajouter(v1)
+    v2=Voiture()
+    v2.Saisir()
+    a.ajouter(v2)
+    found=a.rechercherparmat("12")
+    print(found)
     
-    def get_voiture_plusAncienne(self):
-        print("Voiture la plus ancienne: ")
-        return self.liste_voitures[0]
+    a.afficher()
+    a.trier_date()
+    a.afficher()
+    a.getvoitureplusancienne()
+    a.getvoitureplusrecente()
+    a.search_voiture()
     
