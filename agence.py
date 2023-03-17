@@ -118,23 +118,7 @@ class Agence:
         v.Afficher()
     
 
-def convert_marque(self, marque):
-        marque_mapping = {}
-        for i, m in enumerate(set([v.marque for v in self.voitures])):
-            marque_mapping[m] = i
-        return marque_mapping[marque]
 
-def convert_date_circulation(self, date_circulation):
-        year, month, day = map(int, date_circulation.split('-'))
-        return year + month/12 + day/365
-
-def to_vector(self, marque, date_circulation, cylindre, kilometrage):
-        marque = self.convert_marque(marque)
-        date_circulation = self.convert_date_circulation(date_circulation)
-        vector = np.array([marque, date_circulation, cylindre, kilometrage])
-        return vector / np.linalg.norm(vector)
-
-def search_voiture(self, marque, date_circulation, cylindre, kilometrage):
         print("in")
         search_vector = self.to_vector(marque, date_circulation, cylindre, kilometrage)
         print("in 1")
