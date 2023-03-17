@@ -116,20 +116,7 @@ class Agence:
     def getvoitureplusancienne(self):
         v=self.my_listcars[0]
         v.Afficher()
-    
 
-
-        print("in")
-        search_vector = self.to_vector(marque, date_circulation, cylindre, kilometrage)
-        print("in 1")
-        scores = []
-        for v in self.voitures:
-            voiture_vector = self.to_vector(v.marque, v.date_circulation, v.cylindre, v.kilometrage)
-            similarity = np.dot(search_vector, voiture_vector)
-            scores.append((v, similarity))
-        print("in 2")
-        scores.sort(key=lambda x: x[1], reverse=True)
-        return scores
 
 
 
@@ -157,4 +144,3 @@ if __name__ == '__main__':
     a.getvoitureplusancienne()
     a.getvoitureplusrecente()
     # a.search_voiture()
-    
