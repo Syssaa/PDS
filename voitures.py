@@ -45,7 +45,6 @@ class Voiture:
     
 
 if __name__ == '__main__':
-     print("hello")
      
      v=Voiture()
      v.Saisir()
