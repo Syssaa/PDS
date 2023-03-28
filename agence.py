@@ -1,10 +1,11 @@
 from voitures import Voiture
 from datetime import datetime
-
+import pandas as pd
 import csv
 import os
 
 class Agence:
+    
     def __init__(self):
         self.my_listcars = []
         #initialize le fichiers csv
@@ -36,9 +37,6 @@ class Agence:
         
         self.load()
         
-        
-        
-
     def supprimer(self,v):
         self.load()
         if(self.rechercherparmat(v.matricule)):
@@ -79,13 +77,18 @@ class Agence:
         
         for v in self.my_listcars:
             print("\n------------------------")
-            self.my_listcars[x].Afficher()
+            self.my_listcars[x].Affiche()
             x+=1
         print("_____________________________")
-            
-            
-        
 
+    def preprocessing(self,df):
+        df_copie=df
+        # suppression de la colonne matricule
+        df_copie.drop('Matricule', axis=1, errors='ignore',inplace=True)
+        # transformation de la colonne date_circulation en age voiture
+        df_copie['Date de circulation'] = pd.to_datetime(df_copie['Date de circulation'])
+        df_copie['AgeV'] = datetime.datetime.now().year - df_copie['Date de circulation'].dt.year
+        df_copie = df_copie.drop(columns=['Date de circulation'], axis=1)
 
     def trier_date(self):
         print("sorting")
@@ -95,7 +98,7 @@ class Agence:
         for voiture in sorted_voitures:
             v1=Voiture()
             v1=voiture
-            v1.Afficher()      
+            v1.Affiche()      
             self.my_listcars.append(v1)
             print("sorting")
         with open("voitures.csv", "w", newline="") as file:
@@ -104,20 +107,20 @@ class Agence:
         for car in self.my_listcars:
               v1=Voiture()
               v1=car
-              v1.Afficher()
+              v1.Affiche()
               with open("voitures.csv", "a", newline="") as file:
                 writer = csv.writer(file,delimiter=';',quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
                 writer.writerow([v1.matricule, v1.marque, v1.date_circulation, v1.kilometrage, v1.cylindre])
-
-
+ 
     def getvoitureplusrecente(self):
         v=self.my_listcars[-1]
-        v.Afficher()
+        v.Affiche()
+  
     def getvoitureplusancienne(self):
         v=self.my_listcars[0]
-        v.Afficher()
+        v.Affiche()
 
-
+    
 
 
 if __name__ == '__main__':
