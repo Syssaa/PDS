@@ -37,6 +37,7 @@ class Recherche:
             distances=self.calculedistance(df,df_v)
             data['distances']=distances
             df_sorted = data.sort_values('distances')
+            print(df_sorted.columns)
             print(df_sorted)
 
             
