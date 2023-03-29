@@ -1,6 +1,7 @@
 from voituretransformation import VoitureTransformation
 from voitures import Voiture
 from transformations_images import TransformationImageVoiture
+from transformations_texte import TransformationVoitureTexte
 import pandas as pd
 import numpy as np
 import os
@@ -44,7 +45,26 @@ class Recherche:
 
             
        def RechercheText(self):
-            pass
+          transformer = TransformationVoitureTexte()
+          df=transformer.getCorpus(transformer.getPaths())
+          #result=pd.DataFrame()
+          Corpus=df['Corpus']
+          #print(df)
+          transformer.fit(Corpus)
+          X=transformer.transform(Corpus)
+          data=X.toarray()
+          NewText="2018 Honda Civic LX avec seulement 20 000 miles au compteur ! Cette voiture est en excellent état et a été régulièrement entretenue. Elle est équipée d'un moteur 4-cylindres de 2,0 L et d'une transmission à variation continue (CVT)."
+          NewTextX=transformer.transform([NewText])
+          query=NewTextX.toarray()
+          distances = np.sqrt(np.sum((data - query) ** 2, axis=1))
+          print("now\n")
+          print(distances)
+          df['distances']=distances
+          print(df)
+          df_sorted = df.sort_values('distances', ascending=True)
+
+          print(df_sorted)
+
        
       
        
@@ -81,7 +101,11 @@ class Recherche:
           df_sorted = result.sort_values('distances', ascending=True)
 
           print(df_sorted)
+
+
+          
 if __name__ == '__main__':
      r=Recherche()
      #r.RechercheQuery()
-     r.RechercheImage()
+     #r.RechercheImage()
+     r.RechercheText()
