@@ -1,7 +1,9 @@
 from voituretransformation import VoitureTransformation
 from voitures import Voiture
+from transformations_images import TransformationImageVoiture
 import pandas as pd
 import numpy as np
+import os
 class Recherche:
        def __init__(self):
               pass
@@ -36,15 +38,50 @@ class Recherche:
             #print(df_v)
             distances=self.calculedistance(df,df_v)
             data['distances']=distances
-            df_sorted = data.sort_values('distances')
+            df_sorted = data.sort_values('distances', ascending=True)
             print(df_sorted.columns)
             print(df_sorted)
 
             
        def RechercheText(self):
             pass
+       
+      
+       
        def RechercheImage(self):
-            pass
+          img=TransformationImageVoiture()
+          dir_path = os.getcwd()
+          data_path=dir_path+'\\img'
+          nameslist = os.listdir(data_path)
+          imagespath=[]
+          for name in nameslist:   
+               image_path = os.path.join(data_path, name) 
+               if image_path.endswith('.jpg'):
+                    imagespath.append(image_path)
+                    Mat=img.transform(imagespath,100*200)
+          print(Mat)
+          result=pd.DataFrame()
+          result['url']=imagespath
+
+          ###New image
+          data_path=dir_path+'\\imgquery'
+          nameslist = os.listdir(data_path)
+          imagespath=[]
+          for name in nameslist:   
+           image_path = os.path.join(data_path, name) 
+           if image_path.endswith('.jpg'):
+             imagespath.append(image_path)
+             MatNew=img.transform(imagespath,100*200)
+          print(MatNew)
+
+          distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))
+          print("now\n")
+          print(distances)
+          result['distances']=distances
+          df_sorted = result.sort_values('distances', ascending=True)
+
+          print(df_sorted)
 if __name__ == '__main__':
      r=Recherche()
-     r.RechercheQuery()
+     #r.RechercheQuery()
+     r.RechercheImage()

@@ -35,21 +35,21 @@ if __name__ == '__main__':
  data_path=dir_path+'\\img'
  nameslist = os.listdir(data_path)
  imagespath=[]
-for name in nameslist:   
+ for name in nameslist:   
    image_path = os.path.join(data_path, name) 
    if image_path.endswith('.jpg'):
     imagespath.append(image_path)
-Mat=img.transform(imagespath,100*200)
-print(Mat)
+ Mat=img.transform(imagespath,100*200)
+ print(Mat)
 
 
 ###New image
-data_path=dir_path+'\\imgquery'
-nameslist = os.listdir(data_path)
-imagespath=[]
-for name in nameslist:   
+ data_path=dir_path+'\\imgquery'
+ nameslist = os.listdir(data_path)
+ imagespath=[]
+ for name in nameslist:   
    image_path = os.path.join(data_path, name) 
    if image_path.endswith('.jpg'):
     imagespath.append(image_path)
-MatNew=img.transform(imagespath,100*200)
-print(MatNew)
+ MatNew=img.transform(imagespath,100*200)
+ print(MatNew)
