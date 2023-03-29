@@ -103,9 +103,27 @@ class Recherche:
           print(df_sorted)
 
 
-          
+import pymongo
+from pymongo import MongoClient         
 if __name__ == '__main__':
-     r=Recherche()
+     #r=Recherche()
      #r.RechercheQuery()
      #r.RechercheImage()
-     r.RechercheText()
+    # r.RechercheText()
+    
+
+     # Set up a MongoDB client to connect to your Atlas cluster
+     client = MongoClient("mongodb+srv://lina:lina@cluster0.st42f.mongodb.net/test")
+
+     # Access a database and a collection
+     db = client.Agence_database
+     collection = db.Agence_collection
+
+     # Insert a document into the collection
+     document = {"name": "John", "age": 30}
+     result = collection.insert_one(document)
+     print("Inserted document with ID:", result.inserted_id)
+
+     # Find all documents in the collection
+     for document in collection.find():
+      print(document)
