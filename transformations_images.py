@@ -16,9 +16,12 @@ class TransformationImageVoiture(BaseEstimator, TransformerMixin):
     def transform(self, X, size=100*200):
        images = np.zeros((len(X),100*200))
        i=0
-       for path in X:   
-        I = imread(path)
-        gray_image = rgb2gray(I)
+       for path in X: 
+        from PIL import Image
+        img = Image.open(path)
+          
+       # I = imread(path)
+        gray_image = rgb2gray(img)
         #plt.imshow(I)
         I1 = resize(gray_image, (100,200))
         plt.imshow(I1, cmap='gray') 

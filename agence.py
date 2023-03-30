@@ -160,7 +160,7 @@ class Agence:
     def AfficheAll(self):
      for index, row in self.data.iterrows():
         v=Voiture(row['Matricule'],row['Marque'],row['Date de circulation'],row['Kilometrage'],row['Cylindre'],row['description'],row['image'])
-        v.Affiche()
+        v.AfficheFull()
        
     
 

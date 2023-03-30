@@ -15,6 +15,7 @@ from skimage.io import imread,imshow
 from skimage.color import rgb2gray
 from matplotlib import pyplot as plt
 from skimage.transform import resize
+from sklearn.metrics import pairwise_distances
 
 class Recherche:
        def __init__(self):
@@ -102,7 +103,7 @@ class Recherche:
           print(df_sorted)
        
        #VersionDB   
-       def RechercheText_VDB(self):
+       def RechercheText_VDB(self,NewText):
           transformer = TransformationVoitureTexte()
           v=VoitureTransformation()
           a=Agence()
@@ -113,16 +114,18 @@ class Recherche:
           transformer.fit(Corpus)
           X=transformer.transform(Corpus)
           data=X.toarray()
-          NewText=" 2019 FIAT RAV4 XLE avec seulement 15 000 miles au compteur excellent état et a été régulièrement entretenue. Elle est équipée d'un moteur 4-cylindres de 2,0 L et d'une transmission à variation continue (CVT)."
           NewTextX=transformer.transform([NewText])
           query=NewTextX.toarray()
-          distances = np.sqrt(np.sum((data - query) ** 2, axis=1))
-          print("now\n")
-          print(distances)
-          df['distances']=distances
-          print(df)
+          distances = pairwise_distances(query, data, metric='cosine')
+          lst = distances.tolist()
+          print(lst)
+          distances_df = pd.DataFrame()
+          distances_df['distances']=lst[0]
+          df = pd.concat([df, distances_df], axis=1)
+          
           df_sorted = df.sort_values('distances', ascending=True)
           print(df_sorted)
+          return df_sorted
        
       
        #versionFolder
@@ -172,14 +175,16 @@ class Recherche:
           
           Mat=img.transformVB(df,100*200)
           if image_path.endswith('.jpg'):
-           print(image_path)
-           MatNew=img.transform(image_path,100*200)
-         #   distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))         
-         #   df['distances']=distances
-         #   df_sorted = df.sort_values('distances', ascending=True)
-         #   return df_sorted
-         #  else: 
-         #    return x 
+           imagespath=[]
+           imagespath.append(image_path)
+           MatNew=img.transform(imagespath,100*200)
+           distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))         
+           df['distances']=distances
+           df_sorted = df.sort_values('distances', ascending=True)
+           print(df_sorted)
+           return df_sorted
+          else: 
+            return x
 
 import pymongo
 from pymongo import MongoClient         
