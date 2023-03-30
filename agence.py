@@ -118,7 +118,7 @@ class Agence:
               with open("voitures.csv", "a", newline="") as file:
                 writer = csv.writer(file,delimiter=';',quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
                 writer.writerow([v1.matricule, v1.marque, v1.date_circulation, v1.kilometrage, v1.cylindre])
-# pour version CSV
+# pour version CS
     def getvoitureplusrecente(self):
         v=self.my_listcars[-1]
         v.Affiche()
