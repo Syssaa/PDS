@@ -29,7 +29,6 @@ class TransformationVoitureTexte (BaseEstimator, TransformerMixin):
     
     
     def transform(self, X, y=None):
-        print("here")
         res=self.cv.transform(X)
         print(res.toarray())
         return res

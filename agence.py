@@ -155,7 +155,7 @@ class Agence:
                 'image': image
             }
             self.data = self.data.append(row, ignore_index=True)
-            #print(data)
+
 #pour version DB
     def AfficheAll(self):
      for index, row in self.data.iterrows():
