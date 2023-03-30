@@ -92,10 +92,10 @@ if __name__=='__main__':
 
     with open("C:/Users/Lina/PDS/PDS/img/img_3015.jpg", "rb") as f:
       photo = f.read()
-    v=Voiture("123M55","FIAT","12/12/2018",212000,12,"2019 Toyota RAV4 XLE avec seulement 15 000 miles au compteur ! Ce SUV est en excellent état et a été méticuleusement entretenu. Il dispose d'un moteur 4-cylindres de 2,5 L et d'une transmission automatique à 8 vitesses.",photo)
-    #found=v.ReadbyMat('123M55')
-    #print(found)
-    #v.SaveDb()
+    v=Voiture("123M55","FIAT","12/12/2018",212000,12,"2019 FIAT RAV4 XLE avec seulement 15 000 miles au compteur ! Ce SUV est en excellent état et a été méticuleusement entretenu. Il dispose d'un moteur 4-cylindres de 2,5 L et d'une transmission automatique à 8 vitesses.",photo)
+    found=v.ReadbyMat('123M55')
+    print(found)
+    v.SaveDb()
     #found=v.ReadbyMat('123M55')
     #print(found)
     #v.Affiche()
@@ -106,10 +106,10 @@ if __name__=='__main__':
     #print(found)
     #v.Affiche()
 
-    res=v.Delete()
-    print(res)
-    found=v.ReadbyMat('123M55')
-    print(found)
+    #res=v.Delete()
+    #print(res)
+    #found=v.ReadbyMat('123M55')
+    #print(found)
    
 
 

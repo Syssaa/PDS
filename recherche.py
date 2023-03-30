@@ -5,6 +5,17 @@ from transformations_texte import TransformationVoitureTexte
 import pandas as pd
 import numpy as np
 import os
+from agence import Agence
+from matplotlib import pyplot as plt
+import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
+import numpy as np
+import os
+from skimage.io import imread,imshow
+from skimage.color import rgb2gray
+from matplotlib import pyplot as plt
+from skimage.transform import resize
+
 class Recherche:
        def __init__(self):
               pass
@@ -19,7 +30,7 @@ class Recherche:
         #Data['Distance']=distances
         return distances
 
-        
+        #versionCSV
        def RechercheQuery(self):
             v=VoitureTransformation()
             # chemin de fichier excel
@@ -43,7 +54,31 @@ class Recherche:
             print(df_sorted.columns)
             print(df_sorted)
 
-            
+     #versionBD
+       def RechercheQuery_VDB(self):
+            v=VoitureTransformation()
+            a=Agence()
+            a.readAll()
+            data=a.data[['Matricule','Marque','Date de circulation','Kilometrage', 'Cylindre']]
+            v.fit(data)
+            df=v.transformer(data)
+            #print(df.columns)
+            #print(df)
+            vt=Voiture()
+            vt.Saisir()
+            vt.affiche()
+            new_rows = {'Matricule':vt.matricule,'Marque': vt.marque,'Date de circulation':vt.date_circulation,'Kilometrage': vt.kilometrage, 'Cylindre': vt.cylindre}
+            new_rowdf = pd.DataFrame([new_rows])
+            df_v=v.transformer(new_rowdf)
+            #print(df_v.columns)
+            #print(df_v)
+            distances=self.calculedistance(df,df_v)
+            data['distances']=distances
+            df_sorted = data.sort_values('distances', ascending=True)
+            print(df_sorted.columns)
+            print(df_sorted)
+  
+       #VersionTXT
        def RechercheText(self):
           transformer = TransformationVoitureTexte()
           df=transformer.getCorpus(transformer.getPaths())
@@ -62,12 +97,33 @@ class Recherche:
           df['distances']=distances
           print(df)
           df_sorted = df.sort_values('distances', ascending=True)
-
           print(df_sorted)
-
+       
+       #VersionDB   
+       def RechercheText_VDB(self):
+          transformer = TransformationVoitureTexte()
+          v=VoitureTransformation()
+          a=Agence()
+          a.readAll()
+          df=a.data
+          Corpus=a.data['description']
+          #print(df)
+          transformer.fit(Corpus)
+          X=transformer.transform(Corpus)
+          data=X.toarray()
+          NewText=" 2019 FIAT RAV4 XLE avec seulement 15 000 miles au compteur excellent état et a été régulièrement entretenue. Elle est équipée d'un moteur 4-cylindres de 2,0 L et d'une transmission à variation continue (CVT)."
+          NewTextX=transformer.transform([NewText])
+          query=NewTextX.toarray()
+          distances = np.sqrt(np.sum((data - query) ** 2, axis=1))
+          print("now\n")
+          print(distances)
+          df['distances']=distances
+          print(df)
+          df_sorted = df.sort_values('distances', ascending=True)
+          print(df_sorted)
        
       
-       
+       #versionFolder
        def RechercheImage(self):
           img=TransformationImageVoiture()
           dir_path = os.getcwd()
@@ -78,7 +134,7 @@ class Recherche:
                image_path = os.path.join(data_path, name) 
                if image_path.endswith('.jpg'):
                     imagespath.append(image_path)
-                    Mat=img.transform(imagespath,100*200)
+          Mat=img.transform(imagespath,100*200)
           print(Mat)
           result=pd.DataFrame()
           result['url']=imagespath
@@ -91,7 +147,7 @@ class Recherche:
            image_path = os.path.join(data_path, name) 
            if image_path.endswith('.jpg'):
              imagespath.append(image_path)
-             MatNew=img.transform(imagespath,100*200)
+          MatNew=img.transform(imagespath,100*200)
           print(MatNew)
 
           distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))
@@ -101,29 +157,46 @@ class Recherche:
           df_sorted = result.sort_values('distances', ascending=True)
 
           print(df_sorted)
+       
+       #VersionDB
+       def RechercheImage_VDB(self):
+          img=TransformationImageVoiture()
+          v=VoitureTransformation()
+          a=Agence()
+          a.readAll()
+          df=a.data
+          x=pd.DataFrame()
+          x['image']=df['image']
+          
+          Mat=img.transformVB(df,100*200)
+          print(Mat)
+          dir_path = os.getcwd()
+          data_path=dir_path+'\\imgquery'
+          nameslist = os.listdir(data_path)
+          imagespath=[]
+          for name in nameslist:   
+           image_path = os.path.join(data_path, name) 
+           if image_path.endswith('.jpg'):
+             imagespath.append("image_path")
+          MatNew=img.transform(imagespath,100*200)
+          print(MatNew)
 
+          distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))
+          print("now\n")
+          print(distances)
+          df['distances']=distances
+          df_sorted = df.sort_values('distances', ascending=True)
+
+          print(df_sorted)
 
 import pymongo
 from pymongo import MongoClient         
 if __name__ == '__main__':
-     #r=Recherche()
+     r=Recherche()
      #r.RechercheQuery()
      #r.RechercheImage()
     # r.RechercheText()
+     #r.RechercheQuery_VDB()
+     r.RechercheImage_VDB()
+     #r.RechercheText_VDB()
     
-
-     # Set up a MongoDB client to connect to your Atlas cluster
-     client = MongoClient("mongodb+srv://lina:lina@cluster0.st42f.mongodb.net/test")
-
-     # Access a database and a collection
-     db = client.Agence_database
-     collection = db.Agence_collection
-
-     # Insert a document into the collection
-     document = {"name": "John", "age": 30}
-     result = collection.insert_one(document)
-     print("Inserted document with ID:", result.inserted_id)
-
-     # Find all documents in the collection
-     for document in collection.find():
-      print(document)

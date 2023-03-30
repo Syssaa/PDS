@@ -29,6 +29,25 @@ class TransformationImageVoiture(BaseEstimator, TransformerMixin):
         images[i,:] = I1
         i=i+1
        return images
+    
+    def transformVB(self, X, size=100*200):
+       images = np.zeros((len(X),100*200))
+       i=0
+       for index, row in X.iterrows():
+        image=row['image']
+        gray_image = rgb2gray(image)
+        #plt.imshow(I)
+        I1 = resize(gray_image, (100,200))
+        plt.imshow(I1, cmap='gray') 
+        I1=I1.flatten().reshape(1, -1)
+        print(I1.shape) 
+        #images.append(I1)
+        # Ajouter le vecteur à la matrice
+        images[i,:] = I1
+        i=i+1
+       return images
+    
+
 if __name__ == '__main__':
  img=TransformationImageVoiture()
  dir_path = os.getcwd()

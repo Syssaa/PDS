@@ -2,6 +2,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 import pandas as pd
 from voitures import Voiture
+from agence import Agence
 import datetime as datetime
 
 class VoitureTransformation (BaseEstimator, TransformerMixin):
@@ -42,8 +43,11 @@ if __name__ == '__main__':
 
   v=VoitureTransformation()
   # chemin de fichier excel
-  data_path='C:/Users/Lina/PDS/PDS/voitures.csv'
-  df=pd.read_csv(data_path , sep=';')
+ # data_path='C:/Users/Lina/PDS/PDS/voitures.csv'
+  #df=pd.read_csv(data_path , sep=';')
+  a=Agence()
+  a.readAll()
+  df=a.data[['Matricule','Marque','Date de circulation','Kilometrage', 'Cylindre']]
   v.fit(df)
   df=v.transformer(df)
   print(df.columns)
