@@ -1,4 +1,4 @@
-# PDS
+# Projet Moteur de rechercher 
 Groupe
 Manar Ben Salah
 Lina Bouraoui
