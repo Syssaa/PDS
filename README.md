@@ -5,8 +5,7 @@ Lina Bouraoui
 Syrine Ghattas
 Aymen ben hadj othmen
 
-le projet est toujours en cours 
-Pour l'instant, il se compose de parties faites à l'école séparées
+
 
 ![e](https://user-images.githubusercontent.com/59377342/229295914-ed52a583-cae9-419f-9ab3-5395e979bf96.PNG)
 
