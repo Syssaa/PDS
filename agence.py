@@ -154,7 +154,9 @@ class Agence:
                 'description':desc,
                 'image': image
             }
-            self.data = self.data.append(row, ignore_index=True)
+           # self.data = self.data.append(row, ignore_index=True)
+            self.data = pd.concat([self.data, pd.DataFrame(row)], ignore_index=True)
+
 
 #pour version DB
     def AfficheAll(self):
