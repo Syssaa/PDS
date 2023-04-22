@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>agence de voyage </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <style>
+            body {
+                background-color: #f1f1f1;
+              }
+              
+            .search-box {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+            }
+            
+            .search-box input[type="text"] {
+              border: none;
+              border-radius: 2em;
+              font-size: 16px;
+              padding: 0.75em 1.5em;
+              width: 500px;
+              max-width: 100%;
+              box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .search-box button[type="submit"] {
+              position: relative;
+              right: 0;
+              top: 0;
+              background-color: transparent;
+              border: none;
+              outline: none;
+              cursor: pointer;
+              padding: 0.75em;
+            }
+            
+            .search-box button[type="submit"]:hover {
+              background-color: #f1f1f1;
+            }
+            
+            .fa-search {
+              font-size: 20px;
+              color: #666;
+            }
+
+            .search-box {
+                position: relative;
+                display: inline-block;
+                margin-right: 10px;
+              }
+              
+              .search-box input[type="text"] {
+                padding-right: 60px; /* Add space for the icons */
+              }
+              
+              .search-box i {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 1.2em;
+                right: 10px;
+              }
+              
+              .search-box i.fa-microphone {
+                right: 40px;
+              }
+              
+              .search-box i.fa-camera {
+                right: 70px;
+              }
+              
+            .navbar {
+                background-color:#800000;  /* set a gradient background */
+               *
+                height: 50px;
+                line-height: 50px;
+              }
+
+              .navbar-right a {
+                color: black;
+              }
+              
+
+              
+              .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+              }
+
+              .navbar-right {
+                float: right;
+              }
+              
+              .navbar-right a {
+                color: white;
+              }            
+          </style>
+    </head>
+    <body>
+        <nav class="navbar">   
+            <a href="">Acceuil</a>
+            <a href="">Catalogue</a>
+            <a href="">Contact</a>
+            <div class="navbar-right">
+                <a href=""><i class="fas fa-user"></i></a>
+
+              </div>
+          </nav>
+          
+<br> <br><br> <br><br> <br><br><br><br>
+
+<div style="text-align:center;">
+    <h1 style="letter-spacing: 0 ;font-size: 3em;">
+      <span style="color: #FF0000;">Polytech</span><span style="color: #800000;">Auto</span><span style="color: #A52A2A;">Search</span>
+ 
+    </h1>
+    <form method="get" action="">
+        <div class="search-box">
+          <input type="text" name="q" placeholder="Search">
+          <label for="file-input">
+            <i class="fas fa-microphone"></i>
+            <i class="fas fa-camera"></i>
+          </label>
+          <input id="file-input" type="file" accept="image/*" style="display:none;">
+          <img id="selected-image" style="max-width: 80px; max-height: 80px;">
+
+        </div>
+      </form>
+      
+      <script>
+        const fileInput = document.getElementById("file-input");
+        const cameraIcon = document.querySelector(".fa-camera");
+        const selectedImage = document.getElementById("selected-image");
+      
+        cameraIcon.addEventListener("click", () => {
+          fileInput.click();
+        });
+      
+        fileInput.addEventListener("change", (event) => {
+          const selectedFile = event.target.files[0];
+          const reader = new FileReader();
+      
+          reader.onload = (event) => {
+            selectedImage.src = event.target.result;
+            selectedImage.style.display = "block";
+          };
+      
+          reader.readAsDataURL(selectedFile);
+        });
+      </script>
+      
+    <br><br>
+    <center>
+    <div style="margin-top: 10px; font-size: 14px; color: #666;">Your one-stop search engine</div>
+    </center>
+  </div>
+  
+  
+
+  
+  
+
+    </body>

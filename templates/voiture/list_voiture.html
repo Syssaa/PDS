@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>agence de voiture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<style>
+        body {
+            background-color: #f1f1f1;
+          }
+          .navbar {
+            background-color:#800000;  /* set a gradient background */
+           *
+            height: 50px;
+            line-height: 50px;
+          }
+
+          .navbar-right a {
+            color: black;
+          }
+          
+
+          
+          .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+          }
+
+          .navbar-right {
+            float: right;
+          }
+          
+          .navbar-right a {
+            color: white;
+          } 
+		table {
+		  font-family: Arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+            box-shadow: 5px 8px 4px rgba(0.7, 0.3, 0.3, 0.3);
+          
+          
+		}
+
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
+
+		tr:nth-child(even) {
+		  background-color: #F8F8FF;
+		}
+
+		.btn {
+		  background-color: #4CAF50;
+		  border: none;
+		  color: white;
+		  padding: 8px 16px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 14px;
+		  margin: 4px 2px;
+		  cursor: pointer;
+		}
+
+		.btn-modifier {background-color: #800000;} 
+        .btn-ajouter {background-color: black;} 
+		.btn-supprimer {background-color: black;} 
+
+        /* Modal container */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+        }
+        
+        /* Modal content */
+        .modal-content {
+          background-color: #f2f2f2;
+          margin: 10% auto;
+          border: 1px solid #ccc;
+          width: 70%;
+          border-radius: 5px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+          padding: 20px;
+        }
+        
+        /* Close button */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        
+        /* Form inputs */
+        form input[type="text"],
+        form textarea {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-bottom: 20px;
+          box-sizing: border-box;
+        }
+        
+        /* Form labels */
+        form label {
+          display: inline-block;
+          width: 100px;
+          margin-bottom: 10px;
+          color: #333;
+        }
+        form input[type="submit"] {
+            background-color: #800000;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+          }
+          
+        
+        
+        
+
+	</style>
+</head>
+<body>
+    <nav class="navbar">   
+        <a href="">Acceuil</a>
+        <a href="">Catalogue</a>
+        <a href="">Contact</a>
+        <div class="navbar-right">
+            <a href=""><i class="fas fa-user"></i></a>
+
+          </div>
+      </nav>
+      <br>
+      <td><button id="btn-ajouter" class="btn btn-ajouter">Ajouter une voiture</button></td>
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Ajouter une voiture</h2>
+      <form>
+        <label for="matricule">Matricule:</label>
+        <input type="text" id="matricule" name="matricule"  placeholder="enter matricule"><br><br>
+  
+        <label for="marque">Marque:</label>
+        <input type="text" id="marque" name="marque"  placeholder="enter marque"><br><br>
+  
+        <label for="kilometrage">Kilométrage:</label>
+        <input type="text" id="kilometrage" name="kilometrage"  placeholder="enter kilometrage"><br><br>
+  
+        <label for="cylindre">Cylindre:</label>
+        <input type="text" id="cylindre" name="cylindre"  placeholder="enter cylindre"><br><br>
+  
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"  placeholder="enter a description"></textarea><br><br>
+  
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"><br><br> <!-- Modified input type to file -->
+  
+        <input type="submit" value="Ajouter">
+      </form>
+    </div>
+  </div>
+  
+
+      <br><br>
+
+<table>
+  <tr>
+    <th>Matricule</th>
+    <th>Marque</th>
+    <th>Kilométrage</th>
+    <th>Cylindre</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th>Modifier</th>
+    <th>Supprimer</th>
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>Toyota</td>
+    <td>120000</td>
+    <td>2.0L</td>
+    <td>Voiture familiale</td>
+    <td><img src="https://www.example.com/image001.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+  <tr>
+    <td>002</td>
+    <td>Honda</td>
+    <td>80000</td>
+    <td>1.5L</td>
+    <td>Voiture sportive</td>
+    <td><img src="https://www.example.com/image002.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+  <tr>
+    <td>003</td>
+    <td>Nissan</td>
+    <td>50000</td>
+    <td>1.6L</td>
+    <td>Voiture compacte</td>
+    <td><img src="https://www.example.com/image003.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+  <tr>
+    <td>004</td>
+    <td>Jeep</td>
+    <td>70000</td>
+    <td>2.6L</td>
+    <td>Voiture sportive</td>
+    <td><img src="https://www.example.com/image003.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+  <tr>
+    <td>005</td>
+    <td>Audi</td>
+    <td>70000</td>
+    <td>1.9L</td>
+    <td>Voiture moderne</td>
+    <td><img src="https://www.example.com/image003.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+  <tr>
+    <td>006</td>
+    <td>Mercedes</td>
+    <td>100000</td>
+    <td>8.6L</td>
+    <td>Voiture classique</td>
+    <td><img src="https://www.example.com/image003.jpg" alt="Image de la voiture"></td>
+    <td><button class="btn btn-modifier">Modifier</button></td>
+    <td><button class="btn btn-supprimer">Supprimer</button></td>
+  </tr>
+</table>
+<script>
+    // Get the modal
+var modal = document.getElementById("modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("btn-ajouter");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+</script>
+</body>
+</html>
