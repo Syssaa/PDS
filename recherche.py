@@ -52,8 +52,8 @@ class Recherche:
             distances=self.calculedistance(df,df_v)
             data['distances']=distances
             df_sorted = data.sort_values('distances', ascending=True)
-            print(df_sorted.columns)
-            print(df_sorted)
+           # print(df_sorted.columns)
+            #print(df_sorted)
 
      #versionBD
        def RechercheQuery_VDB(self, vt=Voiture()):
@@ -77,8 +77,8 @@ class Recherche:
             data=a.data
             data['distances']=distances
             df_sorted = data.sort_values('distances', ascending=True)
-            print(df_sorted.columns)
-            print(df_sorted)
+            #print(df_sorted.columns)
+            #print(df_sorted)
             return df_sorted
   
        #VersionTXT
@@ -95,12 +95,12 @@ class Recherche:
           NewTextX=transformer.transform([NewText])
           query=NewTextX.toarray()
           distances = np.sqrt(np.sum((data - query) ** 2, axis=1))
-          print("now\n")
-          print(distances)
+          #print("now\n")
+          #print(distances)
           df['distances']=distances
-          print(df)
+          #print(df)
           df_sorted = df.sort_values('distances', ascending=True)
-          print(df_sorted)
+          #print(df_sorted)
        
        #VersionDB   
        def RechercheText_VDB(self,NewText):
@@ -118,13 +118,13 @@ class Recherche:
           query=NewTextX.toarray()
           distances = pairwise_distances(query, data, metric='cosine')
           lst = distances.tolist()
-          print(lst)
+          #print(lst)
           distances_df = pd.DataFrame()
           distances_df['distances']=lst[0]
           df = pd.concat([df, distances_df], axis=1)
           
           df_sorted = df.sort_values('distances', ascending=True)
-          print(df_sorted)
+         # print(df_sorted)
           return df_sorted
        
       
@@ -140,7 +140,7 @@ class Recherche:
                if image_path.endswith('.jpg'):
                     imagespath.append(image_path)
           Mat=img.transform(imagespath,100*200)
-          print(Mat)
+          #print(Mat)
           result=pd.DataFrame()
           result['url']=imagespath
 
@@ -153,15 +153,15 @@ class Recherche:
            if image_path.endswith('.jpg'):
              imagespath.append(image_path)
           MatNew=img.transform(imagespath,100*200)
-          print(MatNew)
+         # print(MatNew)
 
           distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))
-          print("now\n")
-          print(distances)
+          #print("now\n")
+          #print(distances)
           result['distances']=distances
           df_sorted = result.sort_values('distances', ascending=True)
 
-          print(df_sorted)
+          #print(df_sorted)
        
        #VersionDB
        def RechercheImage_VDB(self,image_path):
@@ -181,10 +181,16 @@ class Recherche:
            distances = np.sqrt(np.sum((Mat - MatNew) ** 2, axis=1))         
            df['distances']=distances
            df_sorted = df.sort_values('distances', ascending=True)
-           print(df_sorted)
+          # print(df_sorted)
            return df_sorted
           else: 
             return x
+          
+       def afficherecherche(self,data):
+           for index, row in data.iterrows():
+            v=Voiture(row['Matricule'],row['Marque'],row['Date de circulation'],row['Kilometrage'],row['Cylindre'],row['description'],row['image'])
+            v.AfficheFull()
+           
 
 import pymongo
 from pymongo import MongoClient         

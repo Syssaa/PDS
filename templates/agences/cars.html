@@ -1,0 +1,131 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>My Cars</title>
+      <style>
+        .card {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 10px;
+        }
+
+        .card img {
+        width: 200px;
+        height: 200px;
+        object-fit: fill;
+        border-radius: 5px 0 0 5px;
+        }
+
+        .card-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px;
+        }
+
+        .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+        }
+
+        .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+        }
+
+        .date {
+        font-size: 12px;
+        color: #999;
+        }
+
+        .Marque {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        }
+
+        .description {
+        font-size: 14px;
+        line-height: 1.4;
+        margin-bottom: 0px;
+        }
+
+        .km {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        }
+        
+        .navbar {
+                background-color:#800000;  /* set a gradient background */
+               
+                height: 50px;
+                line-height: 50px;
+              }
+
+              .navbar-right a {
+                color: black;
+              }
+              
+
+              
+              .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+              }
+
+              .navbar-right {
+                float: right;
+              }
+              
+              .navbar-right a {
+                color: white;
+              }  
+
+      </style>
+      
+        
+    
+    </head>
+    <body>
+        <nav class="navbar">
+            <a href="http://127.0.0.1:8000">Acceuil</a>   
+            <a href="#">My Cars</a>
+            <div class="navbar-right">
+                <a href=""><i class="fas fa-user"></i></a>
+
+              </div>
+          </nav>
+          <br><br><br><br>
+        {% for row in html_table %}
+    
+        <div class="card">
+            <img src="data:image/png;base64,{{ row.imagebase|safe }}" alt="{{ row.Matricule|safe }}">
+            <div class="card-content">
+              <div class="card-header">
+                <h3 class="Marque">{{ row.Marque }}</h3>
+            </div>
+                <small class="date">• Date de circulation: {{ row.Date_de_circulation|safe }}</small>
+                <small class="date">• Matricule: {{ row.Matricule|safe }}</small>
+                <small class="date">• Cylindre: {{ row.Cylindre|safe }}</small>
+                <small class="date">• Kilometrage: {{ row.Kilometrage|safe }}</small>
+              
+              
+              <p class="description">{{ row.description }}</p>
+              <!--<div class="card-footer">-->
+
+              </div>
+            </div>
+          </div>
+          
+        {% endfor %}    </body>
+    </html>
+    

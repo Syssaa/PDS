@@ -9,7 +9,8 @@ import pymongo
 import gridfs
 from io import BytesIO
 from PIL import Image
-
+from io import BytesIO
+import base64
 class Agence:
     
     def __init__(self):
@@ -30,7 +31,7 @@ class Agence:
             header = next(reader) # skip header row
             voitures = []
             for row in reader:
-                print(row)
+                #print(row)
 
                 mat,marque,DC,km,cy=row
                 v=Voiture(mat,marque,DC,km,cy)
@@ -98,16 +99,16 @@ class Agence:
         df_copie = df_copie.drop(columns=['Date de circulation'], axis=1)
 # pour version CSV
     def trier_date(self):
-        print("sorting")
+        #print("sorting")
         sorted_voitures = sorted(self.my_listcars, key=lambda x: datetime.strptime(x.date_circulation, "%d/%m/%Y"))
         self.my_listcars.clear()
-        print("endsorting")
+        #print("endsorting")
         for voiture in sorted_voitures:
             v1=Voiture()
             v1=voiture
             v1.Affiche()      
             self.my_listcars.append(v1)
-            print("sorting")
+            #print("sorting")
         with open("voitures.csv", "w", newline="") as file:
               writer = csv.writer(file,delimiter=';',quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
               writer.writerow(["Matricule", "Marque", "Date de circulation", "Kilometrage", "Cylindre"])
@@ -134,7 +135,7 @@ class Agence:
         collection = db.Agence_collection
         cursor = collection.find({})
         datas = list(cursor)
-        self.data = pd.DataFrame(columns=['Matricule', 'Marque', 'Date de circulation', 'Kilometrage', 'Cylindre', 'description', 'image'])
+        self.data = pd.DataFrame(columns=['Matricule', 'Marque', 'Date de circulation', 'Kilometrage', 'Cylindre', 'description', 'image','imagebase'])
 
         for item in datas:
             Matricule= item['matricule']
@@ -145,6 +146,16 @@ class Agence:
             desc=item['description']
             img=item['image']
             image = Image.open(BytesIO(img))
+            
+
+            # Assume `webp_image` is your WebP image object
+            buffered = BytesIO()
+            image.save(buffered, format="WebP")
+            base64_image = base64.b64encode(buffered.getvalue()).decode()
+
+            # Print the Base64-encoded image data
+            #print(base64_image)
+
             row = {
                 'Matricule': Matricule,
                 'Marque': Marque,
@@ -152,10 +163,11 @@ class Agence:
                 'Kilometrage': Km,
                 'Cylindre': Cy,
                 'description':desc,
-                'image': image
+                'image': image,
+                'imagebase': base64_image
             }
-           # self.data = self.data.append(row, ignore_index=True)
-            self.data = pd.concat([self.data, pd.DataFrame(row)], ignore_index=True)
+            self.data = self.data.append(row, ignore_index=True)
+           # self.data = pd.concat([self.data, pd.DataFrame(row)], ignore_index=True)
 
 
 #pour version DB
@@ -170,7 +182,7 @@ class Agence:
 if __name__ == '__main__':
     a=Agence()
     a.readAll()
-    a.AfficheAll()
+   # a.AfficheAll()
    # a.afficher()
    # v=Voiture()
   #  v.Saisir()

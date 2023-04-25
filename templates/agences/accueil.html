@@ -1,166 +1,198 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>agence de voyage </title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<html>
+<head>
+  <title>My Cars</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .card {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+    }
 
-        <style>
-            body {
-                background-color: #f1f1f1;
-              }
-              
-            .search-box {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              position: relative;
-            }
-            
-            .search-box input[type="text"] {
-              border: none;
-              border-radius: 2em;
-              font-size: 16px;
-              padding: 0.75em 1.5em;
-              width: 500px;
-              max-width: 100%;
-              box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            
-            .search-box button[type="submit"] {
-              position: relative;
-              right: 0;
-              top: 0;
-              background-color: transparent;
-              border: none;
-              outline: none;
-              cursor: pointer;
-              padding: 0.75em;
-            }
-            
-            .search-box button[type="submit"]:hover {
-              background-color: #f1f1f1;
-            }
-            
-            .fa-search {
-              font-size: 20px;
-              color: #666;
-            }
+    .card img {
+    width: 200px;
+    height: 200px;
+    object-fit: fill;
+    border-radius: 5px 0 0 5px;
+    }
 
-            .search-box {
-                position: relative;
-                display: inline-block;
-                margin-right: 10px;
-              }
-              
-              .search-box input[type="text"] {
-                padding-right: 60px; /* Add space for the icons */
-              }
-              
-              .search-box i {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 1.2em;
-                right: 10px;
-              }
-              
-              .search-box i.fa-microphone {
-                right: 40px;
-              }
-              
-              .search-box i.fa-camera {
-                right: 70px;
-              }
-              
-            .navbar {
-                background-color:#800000;  /* set a gradient background */
-               
-                height: 50px;
-                line-height: 50px;
-              }
+    .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    }
 
-              .navbar-right a {
-                color: black;
-              }
-              
+    .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    }
 
-              
-              .navbar a {
-                color: white;
-                text-decoration: none;
-                padding: 10px;
-              }
+    .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    }
 
-              .navbar-right {
-                float: right;
-              }
-              
-              .navbar-right a {
-                color: white;
-              }            
-          </style>
-    </head>
-    <body>
-        <nav class="navbar">   
-            <a href="agences/">Acceuil</a>
-            <div class="navbar-right">
-                <a href=""><i class="fas fa-user"></i></a>
+    .date {
+    font-size: 12px;
+    color: #999;
+    }
 
-              </div>
-          </nav>
+    .Marque {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    }
+
+    .description {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 0px;
+    }
+
+    .km {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    }
+    
+    .navbar {
+            background-color:#800000;  /* set a gradient background */
+           
+            height: 50px;
+            line-height: 50px;
+          }
+
+          .navbar-right a {
+            color: black;
+          }
           
-<br> <br><br> <br><br> <br><br><br><br>
+
+          
+          .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+          }
+
+          .navbar-right {
+            float: right;
+          }
+          
+          .navbar-right a {
+            color: white;
+          }  
+          .search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+  width: 400px;
+}
+
+.search-box button[type="submit"] {
+  background: transparent;
+  border: none;
+  color: #333;
+  border-radius: 0 5px 5px 0;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.search-box button[type="submit"]:hover {
+  font-size: 18px;
+}
+
+.search-box i {
+  font-size: 16px;
+}
+
+  </style>
+  
+    
+
+</head>
+<body>
+    <nav class="navbar">
+        <a href="http://127.0.0.1:8000">Acceuil</a>   
+        <a href="">Search car</a>
+        <a href="">Search image</a>
+        <div class="navbar-right">
+            <a href=""><i class="fas fa-user"></i></a>
+
+          </div>
+      </nav>
+      <br><br><br><br>
+      <!-- Search method with input fields -->
+      
 
 <div style="text-align:center;">
     <h1 style="letter-spacing: 0 ;font-size: 3em;">
-      <span style="color: #FF0000;">Polytech</span><span style="color: #800000;">Auto</span><span style="color: #A52A2A;">Search</span>
+      <span style="color: #800000;">AutoSearch</span>
  
     </h1>
-    <form method="get" action="">
+    <form action="" method="post">
+      {% csrf_token %}
         <div class="search-box">
-          <input type="text" name="q" placeholder="Search">
-          <label for="file-input">
-            <i class="fas fa-microphone"></i>
-            <i class="fas fa-camera"></i>
-          </label>
-          <input id="file-input" type="file" accept="image/*" style="display:none;">
-          <img id="selected-image" style="max-width: 80px; max-height: 80px;">
-
+          <input type="text" name="text" placeholder="Search..." required>
+          <button type="submit"><i class="fa fa-search"></i></button>
         </div>
-      </form>
+      </form><br><br>
+      <form action="" method="post" enctype="multipart/form-data" style="border: 1px solid #ddd;border-radius: 20px; width: 300px; margin-left: 40%;"
+      > 
       
-      <script>
-        const fileInput = document.getElementById("file-input");
-        const cameraIcon = document.querySelector(".fa-camera");
-        const selectedImage = document.getElementById("selected-image");
-      
-        cameraIcon.addEventListener("click", () => {
-          fileInput.click();
-        });
-      
-        fileInput.addEventListener("change", (event) => {
-          const selectedFile = event.target.files[0];
-          const reader = new FileReader();
-      
-          reader.onload = (event) => {
-            selectedImage.src = event.target.result;
-            selectedImage.style.display = "block";
-          };
-      
-          reader.readAsDataURL(selectedFile);
-        });
-      </script>
-      
-    <br><br>
-    <center>
-    <div style="margin-top: 10px; font-size: 14px; color: #666;">Your one-stop search engine</div>
-    </center>
-  </div>
-  
-  
+        {% csrf_token %}
+          <div class="search-box" >
+            <input type="file" name="file" placeholder="upload..." style="border: none; background: transparent;" required>
+            <button type="submit"><i class="fa fa-camera"></i></button>
+          </div>
+        </form>
+</div>
 
-  
-  
 
-    </body>
+
+
+
+
+
+
+      <br><br><br><br>
+    {% for row in html_table %}
+
+    <div class="card">
+        <img src="data:image/png;base64,{{ row.imagebase|safe }}" alt="{{ row.Matricule|safe }}">
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="Marque">{{ row.Marque }}</h3>
+        </div>
+            <small class="date">• Date de circulation: {{ row.Date_de_circulation|safe }}</small>
+            <small class="date">• Matricule: {{ row.Matricule|safe }}</small>
+            <small class="date">• Cylindre: {{ row.Cylindre|safe }}</small>
+            <small class="date">• Kilometrage: {{ row.Kilometrage|safe }}</small>
+          
+          
+          <p class="description">{{ row.description }}</p>
+          <!--<div class="card-footer">-->
+
+          </div>
+        </div>
+      </div>
+      
+    {% endfor %}    </body>
+</html>
